@@ -225,7 +225,12 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(cyberpunk
+                         spacemacs-dark
+                         spacemacs-light
+                         doom-gruvbox-light
+                         doom-gruvbox
+                         spacemacs-dark
                          spacemacs-light
                          )
 
@@ -246,7 +251,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13.0
+                               :size 15.0
                                :weight normal
                                :width normal)
 
@@ -340,7 +345,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -404,7 +409,12 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers 't
+   dotspacemacs-line-numbers '(:visual t
+                                       :disabled-for-modes dired-mode
+                                       doc-view-mode
+                                       pdf-view-mode
+                                       text-mode
+                                       :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -568,7 +578,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(vmd-mode valign smartparens mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji flycheck-pos-tip pos-tip yasnippet-snippets which-key use-package treemacs-projectile treemacs-icons-dired quickrun proof-general pcre2el overseer nameless macrostep hybrid-mode helm-xref helm-themes helm-swoop helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy flycheck-package flycheck-elsa evil-mc emr elisp-slime-nav dotenv-mode diminish company-coq bind-map auto-yasnippet auto-compile ace-jump-helm-line ac-ispell)))
+   '(winum vmd-mode valign smartparens mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji flycheck-pos-tip pos-tip yasnippet-snippets which-key use-package treemacs-projectile treemacs-icons-dired quickrun proof-general pcre2el overseer nameless macrostep hybrid-mode helm-xref helm-themes helm-swoop helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy flycheck-package flycheck-elsa evil-mc emr elisp-slime-nav dotenv-mode diminish company-coq bind-map auto-yasnippet auto-compile ace-jump-helm-line ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -585,3 +595,4 @@ This function is called at the very end of Spacemacs initialization."
       )
 (setq scroll-preserve-screen-position 'always)
 (setq-default scroll-up-aggressively 0.01 scroll-down-aggressively 0.01)
+(setq-default winum-scope 'frame-local)
