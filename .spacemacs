@@ -56,9 +56,17 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      syntax-checking
      ;; version-control
-     treemacs)
-
-
+     treemacs
+     (osx :variables osx-command-as       'hyper
+          osx-option-as        'meta
+          osx-control-as       'control
+          osx-function-as      nil
+          osx-right-command-as 'left
+          osx-right-option-as  'left
+          osx-right-control-as 'left
+          osx-swap-option-and-command nil)
+     )
+   
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
    ;; loaded using load/require/use-package in the user-config section below in
@@ -225,11 +233,11 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(cyberpunk
+   dotspacemacs-themes '(doom-gruvbox
+                         cyberpunk
                          spacemacs-dark
                          spacemacs-light
                          doom-gruvbox-light
-                         doom-gruvbox
                          spacemacs-dark
                          spacemacs-light
                          )
@@ -345,7 +353,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -354,7 +362,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
@@ -409,12 +417,7 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers '(:visual t
-                                       :disabled-for-modes dired-mode
-                                       doc-view-mode
-                                       pdf-view-mode
-                                       text-mode
-                                       :size-limit-kb 1000)
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -596,3 +599,9 @@ This function is called at the very end of Spacemacs initialization."
 (setq scroll-preserve-screen-position 'always)
 (setq-default scroll-up-aggressively 0.01 scroll-down-aggressively 0.01)
 (setq-default winum-scope 'frame-local)
+(defun dotspacemacs/init-osx-clipboard ()
+       (use-package osx-clipboard
+         :config
+         (progn
+           (osx-clipboard-mode +1)
+           (diminish 'osx-clipboard-mode))))
