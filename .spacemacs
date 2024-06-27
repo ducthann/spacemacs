@@ -417,7 +417,11 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers '(:relative t
+                                         :disabled-for-modes dired-mode
+                                         doc-view-mode
+                                         pdf-view-mode
+                                         :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -581,7 +585,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(winum vmd-mode valign smartparens mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji flycheck-pos-tip pos-tip yasnippet-snippets which-key use-package treemacs-projectile treemacs-icons-dired quickrun proof-general pcre2el overseer nameless macrostep hybrid-mode helm-xref helm-themes helm-swoop helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy flycheck-package flycheck-elsa evil-mc emr elisp-slime-nav dotenv-mode diminish company-coq bind-map auto-yasnippet auto-compile ace-jump-helm-line ac-ispell)))
+   '(js2-mode winum vmd-mode valign smartparens mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji flycheck-pos-tip pos-tip yasnippet-snippets which-key use-package treemacs-projectile treemacs-icons-dired quickrun proof-general pcre2el overseer nameless macrostep hybrid-mode helm-xref helm-themes helm-swoop helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy flycheck-package flycheck-elsa evil-mc emr elisp-slime-nav dotenv-mode diminish company-coq bind-map auto-yasnippet auto-compile ace-jump-helm-line ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
