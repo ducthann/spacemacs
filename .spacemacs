@@ -233,14 +233,10 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-gruvbox
-                         cyberpunk
-                         spacemacs-dark
-                         spacemacs-light
-                         doom-gruvbox-light
-                         spacemacs-dark
-                         spacemacs-light
-                         )
+   dotspacemacs-themes '(misterioso)
+
+   dotspacemacs-configuration-layers '(themes-megapack)
+   
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -418,10 +414,10 @@ It should only modify the values of Spacemacs settings."
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
    dotspacemacs-line-numbers '(:relative t
-                                         :disabled-for-modes dired-mode
+                               :disabled-for-modes dired-mode
                                          doc-view-mode
                                          pdf-view-mode
-                                         :size-limit-kb 1000)
+                               :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
