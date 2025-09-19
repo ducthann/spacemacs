@@ -42,12 +42,19 @@ This function should only modify configuration layer settings."
      better-defaults
      emacs-lisp
      colors
-     coq
+                                        ;(coq :variables
+                                        ;     coq-enable-company 'lsp
+                                        ;     coq-enable-coqidetop t   ;; if not using coq-lsp
+                                        ;     )
+     (coq :variables
+          coq-enable-company t
+          coq-enable-coqidetop t)
+
      ocaml
-     ;; git
+                                        ; git
      helm
      ;; lsp
-     ;; markdown
+     markdown
      multiple-cursors
      org
      ;; (shell :variables
@@ -66,7 +73,7 @@ This function should only modify configuration layer settings."
           osx-right-control-as 'left
           osx-swap-option-and-command nil)
      )
-   
+
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
    ;; loaded using load/require/use-package in the user-config section below in
@@ -77,7 +84,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(gruvbox-theme
                                       color-theme-sanityinc-tomorrow)
-   dotspacemacs-additional-packages '(editorconfig) 
+   dotspacemacs-additional-packages '(editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
@@ -233,10 +240,15 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(misterioso)
+   dotspacemacs-themes '(doom-gruvbox
+                         doom-gruvbox-light
+                         spacemacs-dark
+                         spacemacs-light
+                         cyberpunk
+                         misterioso)
 
    dotspacemacs-configuration-layers '(themes-megapack)
-   
+
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -254,10 +266,15 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 15.0
-                               :weight normal
-                               :width normal)
+
+   dotspacemacs-default-font
+   '("Source Code Pro"  ;; ← exact family name
+     :size 15
+     :weight normal
+     :powerline-scale 1.1)
+
+   dotspacemacs-excluded-packages '(helm-themes helm-swoop)
+
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -413,10 +430,10 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative t
+   dotspacemacs-line-numbers '(:t
                                :disabled-for-modes dired-mode
-                                         doc-view-mode
-                                         pdf-view-mode
+                               doc-view-mode
+                               pdf-view-mode
                                :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -552,7 +569,6 @@ This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump.")
 
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -564,6 +580,10 @@ before packages are loaded."
     :config
     (editorconfig-mode 1))
 
+  (add-hook 'coq-mode-hook
+            (lambda ()
+              (local-set-key (kbd "M-.") #'coq-go-to-definition)))
+
 
   )
 
@@ -574,21 +594,31 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(package-selected-packages
-   '(js2-mode winum vmd-mode valign smartparens mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji flycheck-pos-tip pos-tip yasnippet-snippets which-key use-package treemacs-projectile treemacs-icons-dired quickrun proof-general pcre2el overseer nameless macrostep hybrid-mode helm-xref helm-themes helm-swoop helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy flycheck-package flycheck-elsa evil-mc emr elisp-slime-nav dotenv-mode diminish company-coq bind-map auto-yasnippet auto-compile ace-jump-helm-line ac-ispell)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hl-line ((t nil))))
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(evil-want-Y-yank-to-eol nil)
+   '(package-selected-packages
+     '(ac-ispell ace-jump-helm-line auto-compile auto-yasnippet bind-map company-coq
+                 company-emoji coq-commenter diminish dotenv-mode elisp-slime-nav
+                 emoji-cheat-sheet-plus emr evil-mc flycheck-elsa flycheck-package
+                 flycheck-pos-tip fuzzy gh-md helm-ag helm-c-yasnippet
+                 helm-company helm-descbinds helm-flx helm-make
+                 helm-mode-manager helm-org helm-projectile
+                 helm-xref hybrid-mode js2-mode macrostep markdown-mode
+                 markdown-toc math-symbols mmm-mode nameless overseer pcre2el
+                 pos-tip proof-general quickrun smartparens treemacs-icons-dired
+                 treemacs-projectile use-package valign vmd-mode which-key winum
+                 yasnippet-snippets)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(hl-line ((t nil))))
+  )
 
 (setq redisplay-dont-pause t
       scroll-conservatively most-positive-fixnum
@@ -600,8 +630,8 @@ This function is called at the very end of Spacemacs initialization."
 (setq-default scroll-up-aggressively 0.01 scroll-down-aggressively 0.01)
 (setq-default winum-scope 'frame-local)
 (defun dotspacemacs/init-osx-clipboard ()
-       (use-package osx-clipboard
-         :config
-         (progn
-           (osx-clipboard-mode +1)
-           (diminish 'osx-clipboard-mode))))
+  (use-package osx-clipboard
+    :config
+    (progn
+      (osx-clipboard-mode +1)
+      (diminish 'osx-clipboard-mode))))
