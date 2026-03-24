@@ -42,10 +42,6 @@ This function should only modify configuration layer settings."
      better-defaults
      emacs-lisp
      colors
-                                        ;(coq :variables
-                                        ;     coq-enable-company 'lsp
-                                        ;     coq-enable-coqidetop t   ;; if not using coq-lsp
-                                        ;     )
      (coq :variables
           coq-enable-company t
           coq-enable-coqidetop t)
